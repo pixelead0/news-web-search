@@ -12,7 +12,8 @@ app = Flask(__name__)
 def hello():
     news_eluniversal = NewsHelper.get_news_eluniversal()
     news_jornada = NewsHelper.get_news_jornada()
-    news = news_eluniversal + news_jornada
+    news_sol_de_mexico = NewsHelper.get_news_sol_de_mexico()
+    news = news_eluniversal + news_jornada + news_sol_de_mexico
     return json.dumps(news)
 
 

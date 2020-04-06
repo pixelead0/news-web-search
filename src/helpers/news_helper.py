@@ -51,3 +51,29 @@ class NewsHelper(object):
             }
             entries.append(news)
         return entries
+
+    def get_news_sol_de_mexico():
+        """
+        Search news from the mexican newspaper "El Sol de México"
+        """
+        import requests
+        from bs4 import BeautifulSoup
+        url_elsoldemexico = "https://www.elsoldemexico.com.mx/buscar/?q=vida+agua+permanente"
+        res = requests.get(url_elsoldemexico)
+
+        soup = BeautifulSoup(res.text, 'html.parser')
+        head_nota = soup.select('div.results div.teaser div h4.title')
+
+        entries = []
+        for note in head_nota:
+            print(note.a['href'])
+            print(note.a.text)
+            print("*" * 20)
+
+            news = {
+                "title": note.a.text,
+                "link": note.a['href'],
+                "summary": "",
+            }
+            entries.append(news)
+        return entries
