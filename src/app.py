@@ -1,4 +1,5 @@
 from flask import Flask
+from helpers import NewsHelper
 
 import json
 import logging
@@ -9,11 +10,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    news = {
-        'title': 'Titulo de la noticia',
-        'summary': 'Contenido de la noticia'
-    }
-    logger.info(news)
+    news_eluniversal = NewsHelper.get_news_eluniversal()
+    news = news_eluniversal
     return json.dumps(news)
 
 
