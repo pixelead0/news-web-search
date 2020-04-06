@@ -15,7 +15,7 @@ This backend include a **RESTful API** with the following characteristics:
 ```
 > :bulb: Any other input different to the JSON above must return an error.
 
-- [ ] integrate a web scraper for downloading news from different sources (3 or more)-
+- [X] integrate a web scraper for downloading news from different sources (3 or more)-
 - [ ] The output must include 3 news related to the input keywords sorted according to a custom ranking;
 - [ ] it could be defined using a simple approach like word frequency or TF-IDF or using a more elaborated one using semantics
 
