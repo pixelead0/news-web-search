@@ -11,7 +11,8 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     news_eluniversal = NewsHelper.get_news_eluniversal()
-    news = news_eluniversal
+    news_jornada = NewsHelper.get_news_jornada()
+    news = news_eluniversal + news_jornada
     return json.dumps(news)
 
 
