@@ -1,0 +1,16 @@
+#!/bin/sh
+cd /code
+
+echo "------------------------"
+echo "-- REQUIREMENTS -INI- --"
+echo "------------------------"
+pip install -r requirements.txt
+echo "------------------------"
+echo "-- REQUIREMENTS -FIN- --"
+echo "------------------------"
+
+# Dev
+python app.py
+
+# Prod
+# uwsgi --ini uwsgi.ini
