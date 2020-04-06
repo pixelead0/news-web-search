@@ -10,20 +10,10 @@ app = Flask(__name__)
 @app.route("/api/news", methods=['POST'])
 def get_news():
 
-    result = {}
-
     try:
         keywords = request.json.get('keywords')
-        keywords_str = '+'.join(str(e) for e in keywords)
-
-        news_eluniversal = NewsHelper().get_news_universal(keywords_str)
-        news_jornada = NewsHelper().get_news_jornada(keywords_str)
-        news_sol_de_mexico = NewsHelper().get_news_sol_de_mexico(keywords_str)
-
-        result['keywords_str'] = keywords_str
-        result['keywords'] = keywords
-        result['news'] = news_eluniversal + news_jornada + news_sol_de_mexico
-        return jsonify(result)
+        news = NewsHelper().search_news(keywords)
+        return jsonify(news)
 
     except Exception as e:
         error = {"error": f"the page cannot be loaded: -{e}-"}

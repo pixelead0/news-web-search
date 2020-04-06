@@ -82,3 +82,17 @@ class NewsHelper(object):
             }
             entries.append(news)
         return entries
+
+    def search_news(self, keywords):
+        keywords_str = '+'.join(str(e) for e in keywords)
+
+        news_eluniversal = self.get_news_universal(keywords_str)
+        news_jornada = self.get_news_jornada(keywords_str)
+        news_sol_de_mexico = self.get_news_sol_de_mexico(keywords_str)
+
+        result = {}
+        result['keywords_str'] = keywords_str
+        result['keywords'] = keywords
+        result['news'] = news_eluniversal + news_jornada + news_sol_de_mexico
+
+        return result
