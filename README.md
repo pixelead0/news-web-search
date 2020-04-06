@@ -5,7 +5,7 @@ Backend that simulates a custom news web search engine.
 ## Specifications:
 This backend include a **RESTful API** with the following characteristics:
 
- - [ ] It must expose an endpoint is exposed through a ** POST ** method;  e.g `/api/news`
+ - [X] It must expose an endpoint is exposed through a ** POST ** method;  e.g `/api/news`
  - [X] Any other case must return an error.
  - [ ] The input of the API it's a JSON with one property called ​ **`keywords`** and its value is an array of n words (in Spanish) using the following format:
 ```json
