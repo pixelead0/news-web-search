@@ -2,11 +2,19 @@
 cd /code
 
 echo "------------------------"
-echo "-- REQUIREMENTS -INI- --"
+echo "-- REQUIREMENTS -START- --"
 echo "------------------------"
 pip install -r requirements.txt
 echo "------------------------"
-echo "-- REQUIREMENTS -FIN- --"
+echo "-- REQUIREMENTS -END- --"
+echo "------------------------"
+
+echo "------------------------"
+echo "-- MIGRATIONS UPGRADE -START- --"
+echo "------------------------"
+flask db upgrade
+echo "------------------------"
+echo "-- MIGRATIONS UPGRADE -END- --"
 echo "------------------------"
 
 # Dev
