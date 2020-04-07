@@ -14,8 +14,8 @@ services:
     volumes:
       - ./compose/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./compose/nginx/conf:/etc/nginx/conf.d
-      - ./src/static:/django_static
-      - ./src/media:/django_media
+      # - ./src/static:/django_static
+      # - ./src/media:/django_media
     ports:
       - "80:80"
     depends_on:

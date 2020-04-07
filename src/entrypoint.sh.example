@@ -10,7 +10,7 @@ echo "-- REQUIREMENTS -FIN- --"
 echo "------------------------"
 
 # Dev
-python app.py
+python run.py
 
 # Prod
 # uwsgi --ini uwsgi.ini

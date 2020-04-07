@@ -1,11 +1,7 @@
 from flask import Flask, jsonify, request
-from helpers import NewsHelper
 
-import logging
-logger = logging.getLogger(__name__)
-
-app = Flask(__name__)
-
+from app import app
+from app.helpers import NewsHelper
 
 @app.route("/api/news", methods=['POST'])
 def get_news():
@@ -25,6 +21,3 @@ def get_news():
 def page_not_found(error):
     error_404 = {"error": "the page cannot be loaded"}
     return jsonify(error_404)
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')

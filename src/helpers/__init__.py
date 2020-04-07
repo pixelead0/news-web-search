@@ -1,1 +1,0 @@
-from helpers.news_helper import NewsHelper
