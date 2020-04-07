@@ -20,9 +20,9 @@ class NewsHelper(object):
 
         entries = []
         for note in head_nota:
-            print(note.a['href'])
-            print(note.a.text)
-            print("*" * 20)
+            # print(note.a['href'])
+            # print(note.a.text)
+            # print("*" * 20)
 
             news = {
                 "content": note.a.text,
@@ -40,7 +40,7 @@ class NewsHelper(object):
         import feedparser
 
         feed_url = f"https://www.jornada.com.mx/ultimas/search_rss?SearchableText={keywords}"
-        print(feed_url)
+        # print(feed_url)
         news_feed = feedparser.parse(feed_url)
         # entry = news_feed.entries[1]
 
@@ -70,9 +70,9 @@ class NewsHelper(object):
 
         entries = []
         for note in head_nota:
-            print(note.a['href'])
-            print(note.a.text)
-            print("*" * 20)
+            # print(note.a['href'])
+            # print(note.a.text)
+            # print("*" * 20)
 
             news = {
                 "content": note.a.text,
@@ -95,4 +95,30 @@ class NewsHelper(object):
         result['keywords'] = keywords
         result['news'] = news_eluniversal + news_jornada + news_sol_de_mexico
 
+        save_news = self.save_news(result)
+
         return result
+
+    def save_news(self, result):
+        print("+" * 20)
+        from app.models import News
+        from app.models import Keywords
+        from app import db
+
+        for news in result['news']:
+            n = News(
+                content=news['content'],
+                reference=news['reference'],
+                ranking=0,
+            )
+
+            db.session.add(n)
+            db.session.commit()
+
+            for word in result['keywords']:
+                print(word, n.id)
+                kw = Keywords(keyword=word, keywords=n)
+                db.session.add(kw)
+                db.session.commit()
+
+        return True

@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from app import app
 from app.helpers import NewsHelper
 
+
 @app.route("/api/news", methods=['POST'])
 def get_news():
 

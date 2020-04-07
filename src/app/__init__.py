@@ -5,7 +5,6 @@ from app.config import Config
 
 db = SQLAlchemy()
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
 
