@@ -42,8 +42,7 @@ This backend include a **RESTful API** with the following characteristics:
 }
 ```
 - [X] Each output must be saved in the DB;
-- [ ] in case the input is repeated, the API must
-retrieve the data from the DB instead of the internet.
+- [X] in case the input is repeated, the API must retrieve the data from the DB instead of the internet.
 
 ## Points to evaluate:
 - [X] The code must be uploaded and shared through a Github repo (or similar).

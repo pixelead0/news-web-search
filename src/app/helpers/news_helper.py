@@ -1,7 +1,3 @@
-import logging
-logger = logging.getLogger(__name__)
-
-
 class NewsHelper(object):
 
     def get_news_universal(self, keywords):
@@ -83,42 +79,65 @@ class NewsHelper(object):
             entries.append(news)
         return entries
 
-    def search_news(self, keywords):
+    def get_news_from_db(self, keywords):
+        from app.models import News
+        from app.models import Keywords
+
         keywords_str = '+'.join(str(e) for e in keywords)
 
-        news_eluniversal = self.get_news_universal(keywords_str)
-        news_jornada = self.get_news_jornada(keywords_str)
-        news_sol_de_mexico = self.get_news_sol_de_mexico(keywords_str)
+        result = News.query.filter(
+            News.keywords.any(Keywords.keyword.in_(keywords))
+        ).all()
+
+        entries = []
+        for entry in result:
+            news = {
+                "content": entry.content,
+                "reference": entry.reference,
+                "ranking": entry.ranking,
+                "keywords": keywords_str,
+            }
+            entries.append(news)
+        return entries
+
+    def search_news(self, keywords):
+        keywords_str = '+'.join(str(e) for e in keywords)
 
         result = {}
         result['keywords_str'] = keywords_str
         result['keywords'] = keywords
-        result['news'] = news_eluniversal + news_jornada + news_sol_de_mexico
 
-        save_news = self.save_news(result)
+        news_from_db = self.get_news_from_db(keywords)
+        if news_from_db:
+            result['news'] = news_from_db
+        else:
+            news_eluniversal = self.get_news_universal(keywords_str)
+            news_jornada = self.get_news_jornada(keywords_str)
+            news_sol_de_mexico = self.get_news_sol_de_mexico(keywords_str)
+            result['news'] = news_eluniversal + \
+                news_jornada + news_sol_de_mexico
+            save_news = self.save_news(result)
 
         return result
 
     def save_news(self, result):
-        print("+" * 20)
         from app.models import News
         from app.models import Keywords
+        from app.helpers.db_helper import DbHelper
         from app import db
 
-        for news in result['news']:
-            n = News(
-                content=news['content'],
-                reference=news['reference'],
-                ranking=0,
-            )
+        db_helper = DbHelper()
 
-            db.session.add(n)
-            db.session.commit()
+        for news in result['news']:
+            news_args = {
+                "content": news['content'],
+                "reference": news['reference']
+            }
+
+            n = DbHelper().get_or_create(db.session, News, **news_args)
 
             for word in result['keywords']:
                 print(word, n.id)
-                kw = Keywords(keyword=word, keywords=n)
-                db.session.add(kw)
-                db.session.commit()
-
+                keywords_args = {"keyword": word, "keywords": n}
+                kw = DbHelper().get_or_create(db.session, Keywords, **keywords_args)
         return True
