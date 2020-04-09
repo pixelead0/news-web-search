@@ -1,6 +1,43 @@
 # news-web-search
 Backend that simulates a custom news web search engine.
 
+## Dependencies:
+- python==3.8
+- postgresql==11
+- flask==1.1.2
+- flask-sqlalchemy==2.4.1
+
+## Requirements:
+
+* [Docker](https://docs.docker.com/engine/installation/).
+* [Docker-compose](https://docs.docker.com/compose/install).
+
+## Install:
+* Clone the repository
+```shell
+$ git clone https://github.com/pixelead0/news-web-search.git
+```
+* Create and edit configuration files.
+```shell
+$ sh config.sh
+```
+
+* Run docker-compose to start the containers:
+```shell
+$ docker-compose up
+```
+
+* Send post request
+```shell
+curl -X POST \
+  http://0.0.0.0:5000/api/news \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{"keywords": ["word1","word2"]
+}'
+```
+> Change `word1` and `word2` for your search.
+
 
 ## Specifications:
 This backend include a **RESTful API** with the following characteristics:
